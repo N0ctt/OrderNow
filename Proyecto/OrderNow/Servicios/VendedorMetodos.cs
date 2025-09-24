@@ -56,12 +56,12 @@ namespace OrderNow.Servicios
                 );
 
                 cmdPedido.Parameters.AddWithValue("@Mesa", pedido.Mesa);
-                cmdPedido.Parameters.AddWithValue("@Estado", (int)pedido.Estado); // enum -> int
+                cmdPedido.Parameters.AddWithValue("@Estado", (int)pedido.Estado); 
 
                 int pedidoId = (int)cmdPedido.ExecuteScalar();
                 pedido.Id = pedidoId;
 
-              
+                // tabla PedidoDetalles
                 foreach (var producto in pedido.Detalles.Productos)
                 {
                     var cmdDetalle = new SqlCommand(
@@ -72,24 +72,22 @@ namespace OrderNow.Servicios
 
                     cmdDetalle.Parameters.AddWithValue("@PedidoId", pedidoId);
                     cmdDetalle.Parameters.AddWithValue("@ProductoId", producto.Id);
-                    cmdDetalle.Parameters.AddWithValue("@Cantidad", 1); // Si tienes cantidad en Producto, úsala aquí
+                    cmdDetalle.Parameters.AddWithValue("@Cantidad", 1); 
                     cmdDetalle.Parameters.AddWithValue("@PrecioUnitario", producto.Precio);
 
                     cmdDetalle.ExecuteNonQuery();
                 }
 
-                // 3️⃣ Confirmar transacción
+                
                 transaccion.Commit();
                 return true;
             }
             catch
             {
-                // ❌ Si algo falla, deshacer los cambios
+                
                 transaccion.Rollback();
-                throw; // Vuelve a lanzar la excepción para manejarla en la UI
+                throw; 
             }
         }
     }
 }
-
-

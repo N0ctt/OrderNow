@@ -58,6 +58,45 @@ namespace OrderNow.Servicios
 
             return cmd.ExecuteNonQuery() > 0;
         }
+
+        public List<Pedido> ConsultarPedidos()
+        {
+            var lista = new List<Pedido>();
+
+            using var conn = conexion.CrearConexion();
+            conn.Open();
+
+            using var cmd = new SqlCommand("SELECT Id, Mesa, Estado FROM Pedidos", conn);
+            using var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                lista.Add(new Pedido(
+                    id: reader.GetInt32(0),
+                    mesa: reader.GetInt32(1),
+                    estado: (EstadoPedido)reader.GetInt32(2) 
+                ));
+            }
+
+            return lista;
+        }
+
+        public bool RegistrarVendedor(Vendedor vendedor)
+        {
+            using var conn = conexion.CrearConexion();
+            conn.Open();
+
+            string query = "INSERT INTO Usuarios (Nombre, Contrasena, Rol) VALUES (@Nombre, @Contrasena, @Rol)";
+
+            using var cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@Nombre", vendedor.Nombre);
+            cmd.Parameters.AddWithValue("@Contrasena", vendedor); 
+            cmd.Parameters.AddWithValue("@Rol", "Vendedor"); 
+
+            return cmd.ExecuteNonQuery() > 0;
+        }
+
+
     }
 }
 
