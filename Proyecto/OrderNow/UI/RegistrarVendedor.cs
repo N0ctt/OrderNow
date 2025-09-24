@@ -3,24 +3,22 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing.Drawing2D;
 
-
-namespace OrderNow.Interfaces
+namespace OrderNow
 {
-    public partial class InterfazPrincipal : Form
+    public partial class RegistrarVendedor : Form
     {
-
-        public InterfazPrincipal()
+        public RegistrarVendedor()
         {
             InitializeComponent();
         }
 
-        private void InterfazPrincipal_Load(object sender, EventArgs e)
+        private void RegistrarVendedor_Load(object sender, EventArgs e)
         {
             int radio = 20; // curvatura
             GraphicsPath path = new GraphicsPath();
@@ -43,32 +41,6 @@ namespace OrderNow.Interfaces
             {
                 ev.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             };
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint_1(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
