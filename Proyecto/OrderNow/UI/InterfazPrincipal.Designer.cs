@@ -40,7 +40,7 @@
             pictureBox1.Image = Properties.Resources.Green_and_White_Elegant_Symmetrical_Login_Page_Desktop_Prototype__1_;
             pictureBox1.Location = new Point(-12, -7);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(956, 539);
+            pictureBox1.Size = new Size(1082, 646);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -50,11 +50,11 @@
             button1.BackColor = Color.Black;
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(72, 394);
+            button1.Location = new Point(85, 472);
             button1.Name = "button1";
-            button1.Size = new Size(302, 39);
+            button1.Size = new Size(339, 52);
             button1.TabIndex = 1;
             button1.Text = "Iniciar Sesion";
             button1.UseVisualStyleBackColor = false;
@@ -63,31 +63,32 @@
             // 
             textBox1.BackColor = Color.White;
             textBox1.BorderStyle = BorderStyle.None;
-            textBox1.Font = new Font("Segoe UI", 11F);
+            textBox1.Font = new Font("Segoe UI", 12F);
             textBox1.ForeColor = Color.Black;
-            textBox1.Location = new Point(72, 271);
+            textBox1.Location = new Point(85, 324);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(302, 20);
+            textBox1.Size = new Size(339, 22);
             textBox1.TabIndex = 2;
             // 
             // textBox2
             // 
             textBox2.BackColor = Color.White;
             textBox2.BorderStyle = BorderStyle.None;
-            textBox2.Font = new Font("Segoe UI", 11F);
+            textBox2.Font = new Font("Segoe UI", 12F);
             textBox2.ForeColor = Color.Black;
-            textBox2.Location = new Point(72, 336);
+            textBox2.Location = new Point(85, 404);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(302, 20);
+            textBox2.Size = new Size(339, 22);
             textBox2.TabIndex = 3;
             textBox2.UseSystemPasswordChar = true;
+            textBox2.TextChanged += textBox2_TextChanged;
             // 
             // InterfazPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(942, 530);
+            ClientSize = new Size(1067, 637);
             Controls.Add(textBox2);
             Controls.Add(textBox1);
             Controls.Add(button1);
