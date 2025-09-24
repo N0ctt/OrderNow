@@ -12,7 +12,9 @@
         public int Mesa { get; set; }                       
         public EstadoPedido Estado { get; set; }
 
-       
+        public PedidoDetalles Detalles { get; set; }
+
+
         public Pedido(int id, int mesa, EstadoPedido estado)
         {
             Id = id;
