@@ -18,7 +18,7 @@ namespace OrderNow
                 return;
             }
 
-            Application.Run(new InterfazPrincipal());
+            Application.Run(new ConsultarProductos());
         }
     }
 }

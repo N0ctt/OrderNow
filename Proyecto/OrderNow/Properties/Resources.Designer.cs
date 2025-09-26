@@ -119,5 +119,45 @@ namespace OrderNow.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Green_and_White_Elegant_Symmetrical_Login_Page_Desktop_Prototype__12_ {
+            get {
+                object obj = ResourceManager.GetObject("Green and White Elegant Symmetrical Login Page Desktop Prototype (12)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Green_and_White_Elegant_Symmetrical_Login_Page_Desktop_Prototype__13_ {
+            get {
+                object obj = ResourceManager.GetObject("Green and White Elegant Symmetrical Login Page Desktop Prototype (13)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Green_and_White_Elegant_Symmetrical_Login_Page_Desktop_Prototype__14_ {
+            get {
+                object obj = ResourceManager.GetObject("Green and White Elegant Symmetrical Login Page Desktop Prototype (14)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Green_and_White_Elegant_Symmetrical_Login_Page_Desktop_Prototype__2_ {
+            get {
+                object obj = ResourceManager.GetObject("Green and White Elegant Symmetrical Login Page Desktop Prototype (2)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

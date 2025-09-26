@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgregarProducto));
             pictureBox1 = new PictureBox();
             button1 = new Button();
             pictureBox2 = new PictureBox();
@@ -42,7 +41,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Image = Properties.Resources.Green_and_White_Elegant_Symmetrical_Login_Page_Desktop_Prototype__12_;
             pictureBox1.Location = new Point(0, -1);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(981, 614);
