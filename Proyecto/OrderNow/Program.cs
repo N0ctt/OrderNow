@@ -18,7 +18,7 @@ namespace OrderNow
                 return;
             }
 
-            Application.Run(new ConsultarProductos());
+            Application.Run(new UIvendedor());
         }
     }
 }

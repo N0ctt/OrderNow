@@ -78,9 +78,10 @@
             dataGridView1.RowTemplate.DefaultCellStyle.Padding = new Padding(0, 5, 0, 5);
             dataGridView1.RowTemplate.Height = 90;
             dataGridView1.ScrollBars = ScrollBars.Vertical;
-            dataGridView1.Size = new Size(968, 374);
+            dataGridView1.Size = new Size(959, 374);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            dataGridView1.CellMouseMove += dataGridView1_CellMouseMove;
             dataGridView1.CellPainting += dataGridView1_CellPainting;
             // 
             // colID
@@ -167,7 +168,7 @@
             colEliminar.Name = "colEliminar";
             colEliminar.Resizable = DataGridViewTriState.False;
             colEliminar.UseColumnTextForButtonValue = true;
-            colEliminar.Width = 158;
+            colEliminar.Width = 150;
             // 
             // ConsultarProductos
             // 
@@ -179,9 +180,12 @@
             ClientSize = new Size(1067, 637);
             Controls.Add(dataGridView1);
             DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "ConsultarProductos";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "ConsultarProductos";
+            Text = "CONSULTAR PRODUCTOS";
             Load += ConsultarProductos_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);

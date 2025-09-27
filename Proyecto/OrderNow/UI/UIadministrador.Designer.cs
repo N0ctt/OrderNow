@@ -38,7 +38,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.Green_and_White_Elegant_Symmetrical_Login_Page_Desktop_Prototype__2_;
+            pictureBox1.Image = Properties.Resources.ADMIN1;
             pictureBox1.Location = new Point(-4, -2);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(1075, 646);
@@ -117,6 +117,9 @@
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(pictureBox1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "UIadministrador";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ADMINISTRADOR";

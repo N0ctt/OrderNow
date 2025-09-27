@@ -11,14 +11,14 @@ using System.Windows.Forms;
 
 namespace OrderNow
 {
-    public partial class ConsultarProductos : Form
+    public partial class ConsultarPedidos : Form
     {
-        public ConsultarProductos()
+        public ConsultarPedidos()
         {
             InitializeComponent();
         }
 
-        private void ConsultarProductos_Load(object sender, EventArgs e)
+        private void ConsultarPedidos_Load(object sender, EventArgs e)
         {
 
         }
@@ -28,78 +28,62 @@ namespace OrderNow
             // Evitar encabezados
             if (e.RowIndex < 0) return;
 
-            // Verificamos si la columna es Editar o Eliminar
-            string colName = dataGridView1.Columns[e.ColumnIndex].Name;
-
-            if (colName == "colEditar" || colName == "colEliminar")
+            // Verificamos si la columna es "colVer"
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "colVer")
             {
-                // Fondo blanco para el margen
-                using (SolidBrush brush = new SolidBrush(Color.White))
-                {
-                    e.Graphics.FillRectangle(brush, e.CellBounds);
-                }
+                e.PaintBackground(e.ClipBounds, true);
 
-                // Colores diferentes para cada botón
-                Color backColor = colName == "colEditar" ? Color.FromArgb(39, 39, 39) : Color.FromArgb(192, 57, 43);
-                Color foreColor = Color.White;
+                Color backColor = Color.FromArgb(39, 39, 39); // fondo oscuro
+                Color foreColor = Color.White;                // texto blanco
 
-                // Margen para que no se peguen entre sí
-                int margin = 6;
+                // Definir el área del botón con un pequeño margen
                 Rectangle rect = new Rectangle(
-                    e.CellBounds.X + margin,
-                    e.CellBounds.Y + margin,
-                    e.CellBounds.Width - (margin * 2),
-                    e.CellBounds.Height - (margin * 2)
+                    e.CellBounds.X + 4,
+                    e.CellBounds.Y + 4,
+                    e.CellBounds.Width - 8,
+                    e.CellBounds.Height - 8
                 );
 
                 int radius = 10; // radio de las esquinas
 
                 using (GraphicsPath path = new GraphicsPath())
                 {
-                    // Dibujar figura redondeada
+                    // Crear figura con esquinas redondeadas
                     path.AddArc(rect.X, rect.Y, radius, radius, 180, 90);
                     path.AddArc(rect.Right - radius, rect.Y, radius, radius, 270, 90);
                     path.AddArc(rect.Right - radius, rect.Bottom - radius, radius, radius, 0, 90);
                     path.AddArc(rect.X, rect.Bottom - radius, radius, radius, 90, 90);
                     path.CloseFigure();
 
-                    // Rellenar
+                    // Rellenar con el color del botón
                     using (SolidBrush brush = new SolidBrush(backColor))
                     {
                         e.Graphics.FillPath(brush, path);
                     }
-
-                    // Borde blanco
-                    using (Pen pen = new Pen(Color.White, 1))
-                    {
-                        e.Graphics.DrawPath(pen, path);
-                    }
+                    
                 }
 
-                // Texto del botón
-                string texto = colName == "colEditar" ? "Editar" : "Eliminar";
-
+                // Dibujar el texto centrado
                 TextRenderer.DrawText(
                     e.Graphics,
-                    texto,
+                    "Ver Pedido", // Texto fijo
                     new Font("Segoe UI Semibold", 11, FontStyle.Bold),
                     rect,
                     foreColor,
                     TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter
                 );
 
-                e.Handled = true;
+                e.Handled = true; // ya pintamos la celda
             }
         }
 
-        // 👇 Evento para cambiar el cursor cuando pasa sobre Editar o Eliminar
         private void dataGridView1_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
                 string colName = dataGridView1.Columns[e.ColumnIndex].Name;
 
-                if (colName == "colEditar" || colName == "colEliminar")
+                if (colName == "colVer")
                 {
                     dataGridView1.Cursor = Cursors.Hand; // 👆 manito
                 }
@@ -115,5 +99,6 @@ namespace OrderNow
         {
 
         }
+
     }
 }

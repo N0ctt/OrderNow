@@ -3,25 +3,26 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
+
 
 namespace OrderNow
 {
-    public partial class UIvendedor : Form
+    public partial class EditarProducto : Form
     {
-        public UIvendedor()
+        public EditarProducto()
         {
             InitializeComponent();
         }
 
-        private void UIvendedor_Load(object sender, EventArgs e)
+        private void EditarProducto_Load(object sender, EventArgs e)
         {
-            RedondearBoton(button3, 20);
-            RedondearBoton(button4, 20);
+            RedondearBoton(button1, 20);
+            RedondearBoton(button2, 20);
         }
 
         private void RedondearBoton(Button boton, int radio)
@@ -45,9 +46,10 @@ namespace OrderNow
             };
         }
 
-        private void productRow1_Load(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
 
         }
+
     }
 }

@@ -73,6 +73,16 @@ namespace OrderNow.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ADMIN1 {
+            get {
+                object obj = ResourceManager.GetObject("ADMIN1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ChatGPT_Image_23_sept_2025__17_24_33 {
             get {
                 object obj = ResourceManager.GetObject("ChatGPT Image 23 sept 2025, 17_24_33", resourceCulture);
@@ -86,6 +96,86 @@ namespace OrderNow.Properties {
         internal static System.Drawing.Bitmap ChatGPT_Image_23_sept_2025__17_27_06 {
             get {
                 object obj = ResourceManager.GetObject("ChatGPT Image 23 sept 2025, 17_27_06", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CONSULTARPEDIDOS {
+            get {
+                object obj = ResourceManager.GetObject("CONSULTARPEDIDOS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DETALLESPED {
+            get {
+                object obj = ResourceManager.GetObject("DETALLESPED", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DETALLESPED__1_ {
+            get {
+                object obj = ResourceManager.GetObject("DETALLESPED (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EDITARPRODUCTO {
+            get {
+                object obj = ResourceManager.GetObject("EDITARPRODUCTO", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EDITARPRODUCTO__1_ {
+            get {
+                object obj = ResourceManager.GetObject("EDITARPRODUCTO (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EDITARPRODUCTO__2_ {
+            get {
+                object obj = ResourceManager.GetObject("EDITARPRODUCTO (2)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EDITARPRODUCTO__3_ {
+            get {
+                object obj = ResourceManager.GetObject("EDITARPRODUCTO (3)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EDITARPRODUCTO__4_ {
+            get {
+                object obj = ResourceManager.GetObject("EDITARPRODUCTO (4)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -156,6 +246,36 @@ namespace OrderNow.Properties {
         internal static System.Drawing.Bitmap Green_and_White_Elegant_Symmetrical_Login_Page_Desktop_Prototype__2_ {
             get {
                 object obj = ResourceManager.GetObject("Green and White Elegant Symmetrical Login Page Desktop Prototype (2)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap VENDEDOR {
+            get {
+                object obj = ResourceManager.GetObject("VENDEDOR", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap VENDEDOR__1_ {
+            get {
+                object obj = ResourceManager.GetObject("VENDEDOR (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap VENDEDOR__2_ {
+            get {
+                object obj = ResourceManager.GetObject("VENDEDOR (2)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
