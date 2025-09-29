@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             pictureBox1 = new PictureBox();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
+            txtNombre = new TextBox();
+            txtContrasena = new TextBox();
+            txtConfirmarContrasena = new TextBox();
             button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -46,43 +46,43 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
-            // textBox1
+            // txtNombre
             // 
-            textBox1.BackColor = Color.White;
-            textBox1.BorderStyle = BorderStyle.None;
-            textBox1.Cursor = Cursors.IBeam;
-            textBox1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            textBox1.ForeColor = Color.Black;
-            textBox1.Location = new Point(156, 336);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(297, 22);
-            textBox1.TabIndex = 1;
+            txtNombre.BackColor = Color.White;
+            txtNombre.BorderStyle = BorderStyle.None;
+            txtNombre.Cursor = Cursors.IBeam;
+            txtNombre.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            txtNombre.ForeColor = Color.Black;
+            txtNombre.Location = new Point(156, 336);
+            txtNombre.Name = "txtNombre";
+            txtNombre.Size = new Size(297, 22);
+            txtNombre.TabIndex = 1;
             // 
-            // textBox2
+            // txtContrasena
             // 
-            textBox2.BackColor = Color.White;
-            textBox2.BorderStyle = BorderStyle.None;
-            textBox2.Cursor = Cursors.IBeam;
-            textBox2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            textBox2.ForeColor = Color.Black;
-            textBox2.Location = new Point(178, 386);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(275, 22);
-            textBox2.TabIndex = 2;
-            textBox2.UseSystemPasswordChar = true;
+            txtContrasena.BackColor = Color.White;
+            txtContrasena.BorderStyle = BorderStyle.None;
+            txtContrasena.Cursor = Cursors.IBeam;
+            txtContrasena.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            txtContrasena.ForeColor = Color.Black;
+            txtContrasena.Location = new Point(178, 386);
+            txtContrasena.Name = "txtContrasena";
+            txtContrasena.Size = new Size(275, 22);
+            txtContrasena.TabIndex = 2;
+            txtContrasena.UseSystemPasswordChar = true;
             // 
-            // textBox3
+            // txtConfirmarContrasena
             // 
-            textBox3.BackColor = Color.White;
-            textBox3.BorderStyle = BorderStyle.None;
-            textBox3.Cursor = Cursors.IBeam;
-            textBox3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            textBox3.ForeColor = Color.Black;
-            textBox3.Location = new Point(178, 447);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(275, 22);
-            textBox3.TabIndex = 3;
-            textBox3.UseSystemPasswordChar = true;
+            txtConfirmarContrasena.BackColor = Color.White;
+            txtConfirmarContrasena.BorderStyle = BorderStyle.None;
+            txtConfirmarContrasena.Cursor = Cursors.IBeam;
+            txtConfirmarContrasena.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            txtConfirmarContrasena.ForeColor = Color.Black;
+            txtConfirmarContrasena.Location = new Point(178, 447);
+            txtConfirmarContrasena.Name = "txtConfirmarContrasena";
+            txtConfirmarContrasena.Size = new Size(275, 22);
+            txtConfirmarContrasena.TabIndex = 3;
+            txtConfirmarContrasena.UseSystemPasswordChar = true;
             // 
             // button1
             // 
@@ -98,6 +98,7 @@
             button1.TabIndex = 4;
             button1.Text = "Registrar Vendedor";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // RegistrarVendedor
             // 
@@ -106,9 +107,9 @@
             BackColor = Color.FromArgb(234, 233, 232);
             ClientSize = new Size(993, 629);
             Controls.Add(button1);
-            Controls.Add(textBox3);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(txtConfirmarContrasena);
+            Controls.Add(txtContrasena);
+            Controls.Add(txtNombre);
             Controls.Add(pictureBox1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -125,9 +126,9 @@
         #endregion
 
         private PictureBox pictureBox1;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
+        private TextBox txtNombre;
+        private TextBox txtContrasena;
+        private TextBox txtConfirmarContrasena;
         private Button button1;
     }
 }

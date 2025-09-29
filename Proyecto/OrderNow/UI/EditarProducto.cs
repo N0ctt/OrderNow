@@ -1,28 +1,37 @@
-﻿using System;
+﻿using OrderNow.Modelos;
+using OrderNow.Servicios;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing.Drawing2D;
 
 
 namespace OrderNow
 {
     public partial class EditarProducto : Form
     {
-        public EditarProducto()
+        private Producto _producto; 
+        private AdministradorMetodos _adminService;
+        public EditarProducto(Producto producto)
         {
             InitializeComponent();
+            _producto = producto;
+            _adminService = new AdministradorMetodos();
         }
 
         private void EditarProducto_Load(object sender, EventArgs e)
         {
             RedondearBoton(button1, 20);
             RedondearBoton(button2, 20);
+            textBox1.Text = _producto.Nombre;
+            textBox2.Text = _producto.Descripcion;
+            textBox3.Text = _producto.Precio.ToString();
         }
 
         private void RedondearBoton(Button boton, int radio)
@@ -48,8 +57,54 @@ namespace OrderNow
 
         private void button2_Click(object sender, EventArgs e)
         {
+            _producto.Nombre = textBox1.Text;
+            _producto.Descripcion = textBox2.Text;
+            if (int.TryParse(textBox3.Text, out int precio))
+            {
+                _producto.Precio = precio;
+            }
+            else
+            {
+                MessageBox.Show("Precio inválido");
+                return;
+            }
+
+
+            if (_adminService.EditarProducto(_producto))
+            {
+                MessageBox.Show("Producto actualizado correctamente");
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Error al actualizar el producto");
+            }
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
 
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+           
+           
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

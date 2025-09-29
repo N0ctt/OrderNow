@@ -30,8 +30,8 @@
         {
             pictureBox1 = new PictureBox();
             button1 = new Button();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
+            txtUsuario = new TextBox();
+            txtContrasena = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -44,6 +44,7 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click_2;
             // 
             // button1
             // 
@@ -59,32 +60,33 @@
             button1.TabIndex = 1;
             button1.Text = "Iniciar Sesion";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
-            // textBox1
+            // txtUsuario
             // 
-            textBox1.BackColor = Color.White;
-            textBox1.BorderStyle = BorderStyle.None;
-            textBox1.Cursor = Cursors.IBeam;
-            textBox1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            textBox1.ForeColor = Color.Black;
-            textBox1.Location = new Point(90, 322);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(339, 22);
-            textBox1.TabIndex = 2;
+            txtUsuario.BackColor = Color.White;
+            txtUsuario.BorderStyle = BorderStyle.None;
+            txtUsuario.Cursor = Cursors.IBeam;
+            txtUsuario.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txtUsuario.ForeColor = Color.Black;
+            txtUsuario.Location = new Point(90, 322);
+            txtUsuario.Name = "txtUsuario";
+            txtUsuario.Size = new Size(339, 22);
+            txtUsuario.TabIndex = 2;
             // 
-            // textBox2
+            // txtContrasena
             // 
-            textBox2.BackColor = Color.White;
-            textBox2.BorderStyle = BorderStyle.None;
-            textBox2.Cursor = Cursors.IBeam;
-            textBox2.Font = new Font("Segoe UI", 12F);
-            textBox2.ForeColor = Color.Black;
-            textBox2.Location = new Point(91, 403);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(339, 22);
-            textBox2.TabIndex = 3;
-            textBox2.UseSystemPasswordChar = true;
-            textBox2.TextChanged += textBox2_TextChanged;
+            txtContrasena.BackColor = Color.White;
+            txtContrasena.BorderStyle = BorderStyle.None;
+            txtContrasena.Cursor = Cursors.IBeam;
+            txtContrasena.Font = new Font("Segoe UI", 12F);
+            txtContrasena.ForeColor = Color.Black;
+            txtContrasena.Location = new Point(91, 403);
+            txtContrasena.Name = "txtContrasena";
+            txtContrasena.Size = new Size(339, 22);
+            txtContrasena.TabIndex = 3;
+            txtContrasena.UseSystemPasswordChar = true;
+            txtContrasena.TextChanged += textBox2_TextChanged;
             // 
             // InterfazPrincipal
             // 
@@ -92,8 +94,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1067, 637);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(txtContrasena);
+            Controls.Add(txtUsuario);
             Controls.Add(button1);
             Controls.Add(pictureBox1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -112,7 +114,7 @@
 
         private PictureBox pictureBox1;
         private Button button1;
-        private TextBox textBox1;
-        private TextBox textBox2;
+        private TextBox txtUsuario;
+        private TextBox txtContrasena;
     }
 }

@@ -2,9 +2,9 @@
 {
     public enum EstadoPedido
     {
-        Pendiente,
-        Entregado,
-        Cancelado
+        Pendiente =0,
+        Entregado =1,
+        Cancelado=2
     }
     public class Pedido
     {

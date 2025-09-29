@@ -1,13 +1,15 @@
-﻿using System;
+﻿using OrderNow.Modelos;
+using OrderNow.Servicios;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing.Drawing2D;
 
 
 namespace OrderNow.Interfaces
@@ -18,27 +20,28 @@ namespace OrderNow.Interfaces
         public InterfazPrincipal()
         {
             InitializeComponent();
+            
         }
 
         private void InterfazPrincipal_Load(object sender, EventArgs e)
         {
-            int radio = 20; // curvatura
+            int radio = 20; 
             GraphicsPath path = new GraphicsPath();
 
-            // Usar un rectángulo más preciso para evitar cortes
+       
             Rectangle rect = new Rectangle(0, 0, button1.Width - 1, button1.Height - 1);
 
-            // Esquinas redondeadas
-            path.AddArc(rect.X, rect.Y, radio, radio, 180, 90); // arriba-izquierda
-            path.AddArc(rect.Right - radio, rect.Y, radio, radio, 270, 90); // arriba-derecha
-            path.AddArc(rect.Right - radio, rect.Bottom - radio, radio, radio, 0, 90); // abajo-derecha
-            path.AddArc(rect.X, rect.Bottom - radio, radio, radio, 90, 90); // abajo-izquierda
+            
+            path.AddArc(rect.X, rect.Y, radio, radio, 180, 90); 
+            path.AddArc(rect.Right - radio, rect.Y, radio, radio, 270, 90); 
+            path.AddArc(rect.Right - radio, rect.Bottom - radio, radio, radio, 0, 90); 
+            path.AddArc(rect.X, rect.Bottom - radio, radio, radio, 90, 90);
             path.CloseFigure();
 
-            // Aplicar región al botón
+            
             button1.Region = new Region(path);
 
-            // 🔑 Activar suavizado (muy importante)
+            
             button1.Paint += (s, ev) =>
             {
                 ev.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
@@ -67,6 +70,41 @@ namespace OrderNow.Interfaces
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            UsuarioService servicio = new UsuarioService();
+            var usuario = servicio.ValidarCredenciales(txtUsuario.Text, txtContrasena.Text);
+
+            if (usuario is Administrador)
+            {
+                using (var adminUI = new UIadministrador())
+                {
+                    this.Hide();            
+                    adminUI.ShowDialog();   
+                    this.Show();            
+                }
+            }
+            else if (usuario is Vendedor)
+            {
+                using (var vendedorUI = new UIvendedor())
+                {
+                    this.Hide();
+                    vendedorUI.ShowDialog();
+                    this.Show();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Credenciales inválidas", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private void pictureBox1_Click_2(object sender, EventArgs e)
         {
 
         }

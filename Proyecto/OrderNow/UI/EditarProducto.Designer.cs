@@ -51,6 +51,7 @@
             button1.TabIndex = 2;
             button1.Text = "Selecciona una imagen";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // pictureBox2
             // 
@@ -59,6 +60,7 @@
             pictureBox2.Size = new Size(154, 136);
             pictureBox2.TabIndex = 3;
             pictureBox2.TabStop = false;
+            pictureBox2.Click += pictureBox2_Click;
             // 
             // textBox1
             // 
@@ -71,6 +73,7 @@
             textBox1.Size = new Size(327, 20);
             textBox1.TabIndex = 4;
             textBox1.TextAlign = HorizontalAlignment.Center;
+            textBox1.TextChanged += textBox1_TextChanged;
             // 
             // textBox2
             // 
@@ -85,6 +88,7 @@
             textBox2.ScrollBars = ScrollBars.Vertical;
             textBox2.Size = new Size(402, 61);
             textBox2.TabIndex = 5;
+            textBox2.TextChanged += textBox2_TextChanged;
             // 
             // textBox3
             // 
@@ -97,6 +101,7 @@
             textBox3.Size = new Size(337, 20);
             textBox3.TabIndex = 6;
             textBox3.TextAlign = HorizontalAlignment.Center;
+            textBox3.TextChanged += textBox3_TextChanged;
             // 
             // button2
             // 

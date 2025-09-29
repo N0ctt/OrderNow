@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using OrderNow.Modelos;
+using OrderNow.Servicios;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,9 +16,13 @@ namespace OrderNow
 {
     public partial class RegistrarVendedor : Form
     {
+
+        private readonly AdministradorMetodos _administradorMetodos;
+
         public RegistrarVendedor()
         {
             InitializeComponent();
+            _administradorMetodos = new AdministradorMetodos();
         }
 
         private void RegistrarVendedor_Load(object sender, EventArgs e)
@@ -41,6 +48,38 @@ namespace OrderNow
             {
                 ev.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             };
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string nombre = txtNombre.Text;
+            string contrasena = txtContrasena.Text;
+            string confirmacion = txtConfirmarContrasena.Text;
+
+            try
+                {
+                var vendedor = new Vendedor (nombre, contrasena);
+                bool exito = _administradorMetodos.RegistrarVendedor(vendedor, confirmacion);
+
+                if (exito)
+                {
+                    MessageBox.Show("Vendedor registrado exitosamente.");
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Error al registrar el vendedor.");
+                }
+
+
+            } catch (SqlException ex)
+            {
+                MessageBox.Show($"Error de base de datos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error inesperado: {ex.Message}");
+            }
         }
     }
 }

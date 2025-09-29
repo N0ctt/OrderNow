@@ -47,5 +47,37 @@ namespace OrderNow
                 ev.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             };
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AgregarProducto agregarProducto = new AgregarProducto();
+            this.Hide();
+            agregarProducto.ShowDialog();
+            this.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ConsultarProductos consultarProductos = new ConsultarProductos();
+            this.Hide();
+            consultarProductos.ShowDialog();
+            this.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            RegistrarVendedor registrarVendedor = new RegistrarVendedor();
+            this.Hide();
+            registrarVendedor.ShowDialog();
+            this.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            ConsultarPedidos consultarPedidos = new ConsultarPedidos();
+            this.Hide();
+            consultarPedidos.ShowDialog(); 
+            this.Show();
+        }
     }
 }

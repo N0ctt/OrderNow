@@ -31,9 +31,9 @@
             pictureBox1 = new PictureBox();
             button1 = new Button();
             pictureBox2 = new PictureBox();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
+            txtNombre = new TextBox();
+            txtDescripcion = new TextBox();
+            txtPrecio = new TextBox();
             button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -63,6 +63,7 @@
             button1.TabIndex = 1;
             button1.Text = "Selecciona una imagen";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // pictureBox2
             // 
@@ -71,44 +72,48 @@
             pictureBox2.Size = new Size(154, 136);
             pictureBox2.TabIndex = 2;
             pictureBox2.TabStop = false;
+            pictureBox2.Click += pictureBox2_Click;
             // 
-            // textBox1
+            // txtNombre
             // 
-            textBox1.BorderStyle = BorderStyle.None;
-            textBox1.Cursor = Cursors.IBeam;
-            textBox1.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
-            textBox1.ForeColor = Color.Black;
-            textBox1.Location = new Point(610, 363);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(304, 20);
-            textBox1.TabIndex = 3;
-            textBox1.TextAlign = HorizontalAlignment.Center;
+            txtNombre.BorderStyle = BorderStyle.None;
+            txtNombre.Cursor = Cursors.IBeam;
+            txtNombre.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            txtNombre.ForeColor = Color.Black;
+            txtNombre.Location = new Point(610, 363);
+            txtNombre.Name = "txtNombre";
+            txtNombre.Size = new Size(304, 20);
+            txtNombre.TabIndex = 3;
+            txtNombre.TextAlign = HorizontalAlignment.Center;
+            txtNombre.TextChanged += textBox1_TextChanged;
             // 
-            // textBox2
+            // txtDescripcion
             // 
-            textBox2.BackColor = Color.White;
-            textBox2.BorderStyle = BorderStyle.None;
-            textBox2.Cursor = Cursors.IBeam;
-            textBox2.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
-            textBox2.ForeColor = Color.Black;
-            textBox2.Location = new Point(535, 424);
-            textBox2.Multiline = true;
-            textBox2.Name = "textBox2";
-            textBox2.ScrollBars = ScrollBars.Vertical;
-            textBox2.Size = new Size(402, 48);
-            textBox2.TabIndex = 4;
+            txtDescripcion.BackColor = Color.White;
+            txtDescripcion.BorderStyle = BorderStyle.None;
+            txtDescripcion.Cursor = Cursors.IBeam;
+            txtDescripcion.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            txtDescripcion.ForeColor = Color.Black;
+            txtDescripcion.Location = new Point(535, 424);
+            txtDescripcion.Multiline = true;
+            txtDescripcion.Name = "txtDescripcion";
+            txtDescripcion.ScrollBars = ScrollBars.Vertical;
+            txtDescripcion.Size = new Size(402, 48);
+            txtDescripcion.TabIndex = 4;
+            txtDescripcion.TextChanged += textBox2_TextChanged;
             // 
-            // textBox3
+            // txtPrecio
             // 
-            textBox3.BackColor = Color.White;
-            textBox3.BorderStyle = BorderStyle.None;
-            textBox3.Cursor = Cursors.IBeam;
-            textBox3.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
-            textBox3.Location = new Point(593, 486);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(321, 20);
-            textBox3.TabIndex = 5;
-            textBox3.TextAlign = HorizontalAlignment.Center;
+            txtPrecio.BackColor = Color.White;
+            txtPrecio.BorderStyle = BorderStyle.None;
+            txtPrecio.Cursor = Cursors.IBeam;
+            txtPrecio.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            txtPrecio.Location = new Point(593, 486);
+            txtPrecio.Name = "txtPrecio";
+            txtPrecio.Size = new Size(321, 20);
+            txtPrecio.TabIndex = 5;
+            txtPrecio.TextAlign = HorizontalAlignment.Center;
+            txtPrecio.TextChanged += textBox3_TextChanged;
             // 
             // button2
             // 
@@ -124,6 +129,7 @@
             button2.TabIndex = 6;
             button2.Text = "Guardar Producto";
             button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
             // 
             // AgregarProducto
             // 
@@ -132,9 +138,9 @@
             BackColor = Color.FromArgb(234, 233, 232);
             ClientSize = new Size(980, 617);
             Controls.Add(button2);
-            Controls.Add(textBox3);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(txtPrecio);
+            Controls.Add(txtDescripcion);
+            Controls.Add(txtNombre);
             Controls.Add(pictureBox2);
             Controls.Add(button1);
             Controls.Add(pictureBox1);
@@ -156,9 +162,9 @@
         private PictureBox pictureBox1;
         private Button button1;
         private PictureBox pictureBox2;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
+        private TextBox txtNombre;
+        private TextBox txtDescripcion;
+        private TextBox txtPrecio;
         private Button button2;
     }
 }

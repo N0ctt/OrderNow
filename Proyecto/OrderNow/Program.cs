@@ -18,7 +18,7 @@ namespace OrderNow
                 return;
             }
 
-            Application.Run(new UIvendedor());
+            Application.Run(new InterfazPrincipal());
         }
     }
 }

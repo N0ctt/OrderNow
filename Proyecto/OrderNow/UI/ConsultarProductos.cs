@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OrderNow.Modelos;
+using OrderNow.Servicios;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,15 +15,105 @@ namespace OrderNow
 {
     public partial class ConsultarProductos : Form
     {
+        private AdministradorMetodos _adminService = new AdministradorMetodos();
         public ConsultarProductos()
         {
             InitializeComponent();
-        }
+            this.dataGridView1.CellPainting += dataGridView1_CellPainting;
 
+        }
         private void ConsultarProductos_Load(object sender, EventArgs e)
         {
-
+            CargarProductos();
         }
+
+        private void CargarProductos()
+        {
+            try
+            {
+                var lista = _adminService.ConsultarProductos();
+
+                // Convertir byte[] a Image
+                foreach (var prod in lista)
+                {
+                    if (prod.Imagen != null && prod.Imagen.Length > 0)
+                    {
+                        using var ms = new System.IO.MemoryStream(prod.Imagen);
+                        prod.ImagenBitmap = Image.FromStream(ms);
+                    }
+                }
+
+                dataGridView1.AutoGenerateColumns = false;
+                dataGridView1.ReadOnly = true;
+
+                // Limpiar columnas existentes
+                dataGridView1.Columns.Clear();
+
+                // Columnas en el orden correcto: ID | Imagen | Nombre | Descripción | Precio | Editar | Eliminar
+                dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "colId",
+                    HeaderText = "ID",
+                    DataPropertyName = "Id"
+                });
+
+                dataGridView1.Columns.Add(new DataGridViewImageColumn
+                {
+                    Name = "colImagen",
+                    HeaderText = "Imagen",
+                    DataPropertyName = "ImagenBitmap",
+                    ImageLayout = DataGridViewImageCellLayout.Zoom
+                });
+
+                dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "colNombre",
+                    HeaderText = "Nombre",
+                    DataPropertyName = "Nombre"
+                });
+
+                dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "colDescripcion",
+                    HeaderText = "Descripción",
+                    DataPropertyName = "Descripcion"
+                });
+
+                dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "colPrecio",
+                    HeaderText = "Precio",
+                    DataPropertyName = "Precio"
+                });
+
+                // Columnas de botones
+                dataGridView1.Columns.Add(new DataGridViewButtonColumn
+                {
+                    Name = "colEditar",
+                    HeaderText = "Editar",
+                    Text = "Editar",
+                    UseColumnTextForButtonValue = true
+                });
+
+                dataGridView1.Columns.Add(new DataGridViewButtonColumn
+                {
+                    Name = "colEliminar",
+                    HeaderText = "Eliminar",
+                    Text = "Eliminar",
+                    UseColumnTextForButtonValue = true
+                });
+
+                // Asignar la lista como DataSource al final
+                dataGridView1.DataSource = lista;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar productos: {ex.Message}");
+            }
+        }
+
+
+
 
         private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
@@ -113,7 +205,42 @@ namespace OrderNow
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex >= 0)
+            {
+                string colName = dataGridView1.Columns[e.ColumnIndex].Name;
 
+                
+                Producto producto = (Producto)dataGridView1.Rows[e.RowIndex].DataBoundItem;
+
+                if (colName == "colEliminar")
+                {
+                    var confirm = MessageBox.Show($"¿Seguro que quieres eliminar '{producto.Nombre}'?",
+                                                  "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                    if (confirm == DialogResult.Yes)
+                    {
+                        if (_adminService.EliminarProducto(producto.Id))
+                        {
+                            MessageBox.Show("Producto eliminado con éxito");
+                            CargarProductos(); 
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error al eliminar producto");
+                        }
+                    }
+                }
+
+                if (colName == "colEditar")
+                {
+                
+                    var frmEditar = new EditarProducto(producto);
+                    frmEditar.ShowDialog();
+
+                    
+                    CargarProductos();
+                }
+            }
         }
     }
 }

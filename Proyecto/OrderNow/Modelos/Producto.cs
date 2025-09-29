@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OrderNow.Modelos
 {
-
     public class Producto
     {
         public int Id { get; set; }
+        public byte[] Imagen { get; set; }
+        public Image ImagenBitmap { get; set; }
+
         private string nombre;
         public string Nombre
         {
@@ -20,7 +18,6 @@ namespace OrderNow.Modelos
                 {
                     nombre = char.ToUpper(value[0]) + value.Substring(1).ToLower();
                 }
-
                 else
                 {
                     nombre = value;
@@ -31,12 +28,21 @@ namespace OrderNow.Modelos
         public string Descripcion { get; set; }
         public int Precio { get; set; }
 
-        public Producto(int id,string nombre, string descripcion, int precio)
+        public Producto() { }
+
+        public Producto(int id, string nombre, string descripcion, int precio, byte[] imagen = null)
         {
             Id = id;
             Nombre = nombre;
             Descripcion = descripcion;
             Precio = precio;
+            Imagen = imagen;
+
+            if (Imagen != null && Imagen.Length > 0)
+            {
+                using var ms = new MemoryStream(Imagen);
+                ImagenBitmap = Image.FromStream(ms);
+            }
         }
     }
 }
