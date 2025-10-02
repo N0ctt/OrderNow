@@ -1,4 +1,8 @@
-﻿using System;
+﻿using OrderNow.Datos;
+using OrderNow.Modelos;
+using OrderNow.Servicios;
+using Org.BouncyCastle.Asn1.Ocsp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,15 +17,77 @@ namespace OrderNow
 {
     public partial class VerDetallesDePedido : Form
     {
-        public VerDetallesDePedido()
+        private int _pedidoId;
+        private AdministradorMetodos _admin = new AdministradorMetodos();
+
+
+        public VerDetallesDePedido(int pedidoId)
         {
             InitializeComponent();
+            _pedidoId = pedidoId;
+
         }
 
         private void VerDetallesDePedido_Load(object sender, EventArgs e)
         {
+            // Obtener el pedido completo con sus detalles
+            var pedido = _admin.ConsultarPedidoPorId(_pedidoId);
 
+            if (pedido == null)
+            {
+                MessageBox.Show("No se encontró el pedido.");
+                Close();
+                return;
+            }
+
+            // Labels
+            lblDetallesPedido.Text = pedido.Id.ToString();
+
+            lblMesa.Text = pedido.Mesa.ToString();
+
+            lblPrecioTotal.Text = pedido.Total.ToString();
+
+
+            // Configurar DataGridView
+            dataGridView1.Columns.Clear();
+            dataGridView1.AutoGenerateColumns = false;
+
+            // Producto
+            var colProducto = new DataGridViewTextBoxColumn();
+            colProducto.HeaderText = "Producto";
+            colProducto.DataPropertyName = "NombreProducto";
+            dataGridView1.Columns.Add(colProducto);
+
+            // Cantidad
+            var colCantidad = new DataGridViewTextBoxColumn();
+            colCantidad.HeaderText = "Cantidad";
+            colCantidad.DataPropertyName = "Cantidad";
+            dataGridView1.Columns.Add(colCantidad);
+
+            // Precio Unitario
+            var colPrecio = new DataGridViewTextBoxColumn();
+            colPrecio.HeaderText = "Precio Unitario";
+            colPrecio.DataPropertyName = "PrecioUnitario";
+            dataGridView1.Columns.Add(colPrecio);
+
+            // Botón Cancelar
+            var colCancelar = new DataGridViewButtonColumn();
+            colCancelar.HeaderText = "Cancelar";
+            colCancelar.Text = "Cancelar";
+            colCancelar.UseColumnTextForButtonValue = true;
+            dataGridView1.Columns.Add(colCancelar);
+
+            // Botón Entregar
+            var colEntregar = new DataGridViewButtonColumn();
+            colEntregar.HeaderText = "Entregar";
+            colEntregar.Text = "Entregar";
+            colEntregar.UseColumnTextForButtonValue = true;
+            dataGridView1.Columns.Add(colEntregar);
+
+            // Fuente de datos: los detalles del pedido
+            dataGridView1.DataSource = pedido.Detalles;
         }
+
 
         private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
@@ -90,13 +156,45 @@ namespace OrderNow
             }
         }
 
-        // 👇 Evento para cambiar el cursor cuando pasa sobre Cancelar o Entregar
-        
+
+
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0) return;
 
+            if (dataGridView1.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
+            {
+                string accion = dataGridView1.Columns[e.ColumnIndex].HeaderText;
+
+                if (accion == "Cancelar")
+                {
+                    if (_admin.CancelarPedido(_pedidoId))
+                    {
+                        MessageBox.Show("Pedido cancelado.");
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo cancelar el pedido.");
+                    }
+                }
+                else if (accion == "Entregar")
+                {
+                    if (_admin.EntregarPedido(_pedidoId))
+                    {
+                        MessageBox.Show("Pedido entregado.");
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo entregar el pedido.");
+                    }
+                }
+            }
         }
+
+
 
         private void dataGridView1_CellMouseMove_1(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -113,6 +211,11 @@ namespace OrderNow
                     dataGridView1.Cursor = Cursors.Default; // ➡️ flecha normal
                 }
             }
+        }
+
+        private void lblDetallesPedido_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

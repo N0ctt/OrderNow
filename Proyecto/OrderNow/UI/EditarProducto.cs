@@ -59,6 +59,7 @@ namespace OrderNow
         {
             _producto.Nombre = textBox1.Text;
             _producto.Descripcion = textBox2.Text;
+
             if (int.TryParse(textBox3.Text, out int precio))
             {
                 _producto.Precio = precio;
@@ -69,6 +70,13 @@ namespace OrderNow
                 return;
             }
 
+            // Guardar la imagen
+            if (pictureBox2.Image != null)
+            {
+                using var ms = new MemoryStream();
+                pictureBox2.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                _producto.Imagen = ms.ToArray();
+            }
 
             if (_adminService.EditarProducto(_producto))
             {
@@ -81,6 +89,7 @@ namespace OrderNow
             }
         }
 
+
         private void pictureBox2_Click(object sender, EventArgs e)
         {
 
@@ -88,8 +97,13 @@ namespace OrderNow
 
         private void button1_Click(object sender, EventArgs e)
         {
-           
-           
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Imágenes|*.jpg;*.png;*.jpeg";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                pictureBox2.Image = Image.FromFile(ofd.FileName);
+            }
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

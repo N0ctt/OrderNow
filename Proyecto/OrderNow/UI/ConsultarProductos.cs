@@ -39,7 +39,12 @@ namespace OrderNow
                     if (prod.Imagen != null && prod.Imagen.Length > 0)
                     {
                         using var ms = new System.IO.MemoryStream(prod.Imagen);
-                        prod.ImagenBitmap = Image.FromStream(ms);
+                        // Crear un Bitmap desconectado del stream
+                        prod.ImagenBitmap = new Bitmap(ms);
+                    }
+                    else
+                    {
+                        prod.ImagenBitmap = null; // Evitar imágenes fantasma
                     }
                 }
 

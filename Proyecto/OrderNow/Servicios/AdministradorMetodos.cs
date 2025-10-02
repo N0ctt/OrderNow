@@ -19,7 +19,7 @@ namespace OrderNow.Servicios
 
         public bool AgregarProducto(Producto producto)
         {
-            
+
             if (string.IsNullOrWhiteSpace(producto.Nombre) || producto.Precio <= 0 || string.IsNullOrWhiteSpace(producto.Descripcion))
             {
                 MessageBox.Show("El producto debe tener un nombre y descripcion");
@@ -68,16 +68,41 @@ namespace OrderNow.Servicios
 
         public bool EliminarProducto(int productoId)
         {
-            using var conn = conexion.CrearConexion();
-            conn.Open();
+            try
+            {
+                using var conn = conexion.CrearConexion();
+                conn.Open();
 
-            string query = "DELETE FROM Productos WHERE Id=@Id";
+                // Verificar si el producto está en pedidos
+                string checkQuery = "SELECT COUNT(*) FROM PedidoDetalles WHERE ProductoID = @Id";
+                using (var checkCmd = new SqlCommand(checkQuery, conn))
+                {
+                    checkCmd.Parameters.AddWithValue("@Id", productoId);
+                    int count = (int)checkCmd.ExecuteScalar();
 
-            using var cmd = new SqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@Id", productoId);
+                    if (count > 0)
+                    {
+                        MessageBox.Show("No se puede eliminar el producto porque ya está en pedidos.",
+                            "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return false;
+                    }
+                }
 
-            return cmd.ExecuteNonQuery() > 0;
+                // Si no está en pedidos, entonces se puede eliminar
+                string query = "DELETE FROM Productos WHERE Id = @Id";
+                using var cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Id", productoId);
+
+                return cmd.ExecuteNonQuery() > 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al eliminar producto: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
         }
+
 
         public List<Producto> ConsultarProductos()
         {
@@ -115,11 +140,14 @@ namespace OrderNow.Servicios
 
             while (reader.Read())
             {
-                lista.Add(new Pedido(
-                    id: reader.GetInt32(0),
-                    mesa: reader.GetInt32(1),
-                    estado: (EstadoPedido)reader.GetInt32(2) 
-                ));
+                var pedido = new Pedido
+                {
+                    Id = reader.GetInt32(0),
+                    Mesa = reader.GetInt32(1),
+                    Estado = (EstadoPedido)reader.GetInt32(2)
+                };
+
+                lista.Add(pedido);
             }
 
             return lista;
@@ -160,6 +188,98 @@ namespace OrderNow.Servicios
                 return false;
             }
         }
+
+        public Pedido ConsultarPedidoPorId(int id)
+        {
+            Pedido pedido = null;
+
+            using var conn = conexion.CrearConexion();
+            conn.Open();
+
+            // Traemos el pedido principal
+            using (var cmd = new SqlCommand("SELECT Id, Mesa, Estado FROM Pedidos WHERE Id = @id", conn))
+            {
+                cmd.Parameters.AddWithValue("@id", id);
+
+                using var rdr = cmd.ExecuteReader();
+                if (rdr.Read())
+                {
+                    pedido = new Pedido
+                    {
+                        Id = rdr.GetInt32(0),
+                        Mesa = rdr.GetInt32(1),
+                        Estado = (EstadoPedido)rdr.GetInt32(2),
+                        Detalles = new List<PedidoDetalle>()
+                    };
+                }
+            }
+
+            if (pedido == null)
+                return null;
+
+            // Traemos los detalles del pedido (con datos del producto)
+            using (var cmd = new SqlCommand(@"
+        SELECT dp.Id, dp.PedidoId, dp.ProductoId, dp.Cantidad, dp.PrecioUnitario, p.Nombre, p.Precio
+        FROM PedidoDetalles dp
+        INNER JOIN Productos p ON dp.ProductoId = p.Id
+        WHERE dp.PedidoId = @id", conn))
+            {
+                cmd.Parameters.AddWithValue("@id", id);
+
+                using var rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    var detalle = new PedidoDetalle
+                    {
+                        Id = rdr.GetInt32(0),
+                        PedidoId = rdr.GetInt32(1),
+                        ProductoId = rdr.GetInt32(2),
+                        Cantidad = rdr.GetInt32(3),
+                        PrecioUnitario = rdr.GetInt32(4),
+                        Producto = new Producto
+                        {
+                            Id = rdr.GetInt32(2),
+                            Nombre = rdr.GetString(5),
+                            Precio = rdr.GetInt32(6)
+                        }
+                    };
+
+                    pedido.Detalles.Add(detalle);
+                }
+            }
+
+
+            return pedido;
+        }
+
+
+        public bool CancelarPedido(int id)
+        {
+            using var conn = conexion.CrearConexion();
+            conn.Open();
+
+            string query = "UPDATE Pedidos SET Estado = @estado WHERE Id = @id";
+            using var cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@estado", (int)EstadoPedido.Cancelado); // 2
+            cmd.Parameters.AddWithValue("@id", id);
+
+            return cmd.ExecuteNonQuery() > 0;
+        }
+
+        public bool EntregarPedido(int id)
+        {
+            using var conn = conexion.CrearConexion();
+            conn.Open();
+
+            string query = "UPDATE Pedidos SET Estado = @estado WHERE Id = @id";
+            using var cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@estado", (int)EstadoPedido.Entregado); // 1
+            cmd.Parameters.AddWithValue("@id", id);
+
+            return cmd.ExecuteNonQuery() > 0;
+        }
+
     }
 }
+
 

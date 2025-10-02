@@ -2,24 +2,19 @@
 {
     public enum EstadoPedido
     {
-        Pendiente =0,
-        Entregado =1,
-        Cancelado=2
+        Pendiente = 0,
+        Entregado = 1,
+        Cancelado = 2
     }
+
     public class Pedido
     {
         public int Id { get; set; }
-        public int Mesa { get; set; }                       
+        public int Mesa { get; set; }
         public EstadoPedido Estado { get; set; }
 
-        public PedidoDetalles Detalles { get; set; }
+        public List<PedidoDetalle> Detalles { get; set; } = new List<PedidoDetalle>();
 
-
-        public Pedido(int id, int mesa, EstadoPedido estado)
-        {
-            Id = id;
-            Mesa = mesa;
-            Estado = estado;
-        }
+        public int Total => Detalles.Sum(d => d.Subtotal);
     }
 }

@@ -30,7 +30,7 @@
         {
             pictureBox1 = new PictureBox();
             button1 = new Button();
-            label1 = new Label();
+            lblNombre = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -58,26 +58,27 @@
             button1.TabIndex = 1;
             button1.Text = "Agregar";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
-            // label1
+            // lblNombre
             // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.FlatStyle = FlatStyle.Popup;
-            label1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(60, 205);
-            label1.Name = "label1";
-            label1.Size = new Size(80, 21);
-            label1.TabIndex = 2;
-            label1.Text = "XXXXXXX";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            lblNombre.AutoSize = true;
+            lblNombre.BackColor = Color.Transparent;
+            lblNombre.FlatStyle = FlatStyle.Popup;
+            lblNombre.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblNombre.Location = new Point(60, 205);
+            lblNombre.Name = "lblNombre";
+            lblNombre.Size = new Size(80, 21);
+            lblNombre.TabIndex = 2;
+            lblNombre.Text = "XXXXXXX";
+            lblNombre.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // ProductoCard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            Controls.Add(label1);
+            Controls.Add(lblNombre);
             Controls.Add(button1);
             Controls.Add(pictureBox1);
             Name = "ProductoCard";
@@ -92,6 +93,6 @@
 
         private PictureBox pictureBox1;
         private Button button1;
-        private Label label1;
+        private Label lblNombre;
     }
 }

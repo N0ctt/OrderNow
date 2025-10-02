@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OrderNow.Servicios;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,8 +21,40 @@ namespace OrderNow
 
         private void ConsultarPedidos_Load(object sender, EventArgs e)
         {
+            var admin = new AdministradorMetodos();
+            var lista = admin.ConsultarPedidos();
 
+            // Limpiar configuraciones previas
+            dataGridView1.Columns.Clear();
+            dataGridView1.AutoGenerateColumns = false;
+
+            // Columna Id
+            var colId = new DataGridViewTextBoxColumn();
+            colId.HeaderText = "ID Pedido";
+            colId.DataPropertyName = "Id";
+            dataGridView1.Columns.Add(colId);
+
+
+            // Columna Estado
+            var colEstado = new DataGridViewTextBoxColumn();
+            colEstado.HeaderText = "Estado";
+            colEstado.DataPropertyName = "Estado";
+            dataGridView1.Columns.Add(colEstado);
+
+            // Columna botón
+            var btnCol = new DataGridViewButtonColumn();
+            btnCol.HeaderText = "Acciones";
+            btnCol.Text = "Ver Pedido";
+            btnCol.UseColumnTextForButtonValue = true;
+            dataGridView1.Columns.Add(btnCol);
+
+            // Asignar DataSource
+            dataGridView1.DataSource = lista;
         }
+
+
+
+
 
         private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
@@ -97,8 +130,14 @@ namespace OrderNow
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            if (e.RowIndex >= 0 && dataGridView1.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
+            {
+                int pedidoId = (int)dataGridView1.Rows[e.RowIndex].Cells[0].Value;
+                var formDetalles = new VerDetallesDePedido(pedidoId);
+                formDetalles.ShowDialog();
+            }
         }
+
 
     }
 }

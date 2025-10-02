@@ -33,9 +33,9 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
+            lblDetallesPedido = new Label();
+            lblMesa = new Label();
+            lblPrecioTotal = new Label();
             dataGridView1 = new DataGridView();
             colProductos = new DataGridViewTextBoxColumn();
             colCantidad = new DataGridViewTextBoxColumn();
@@ -45,47 +45,48 @@
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
-            // label1
+            // lblDetallesPedido
             // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.Cursor = Cursors.IBeam;
-            label1.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.Black;
-            label1.Location = new Point(594, 93);
-            label1.Name = "label1";
-            label1.Size = new Size(46, 50);
-            label1.TabIndex = 0;
-            label1.Text = "X";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            lblDetallesPedido.AutoSize = true;
+            lblDetallesPedido.BackColor = Color.Transparent;
+            lblDetallesPedido.Cursor = Cursors.IBeam;
+            lblDetallesPedido.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblDetallesPedido.ForeColor = Color.Black;
+            lblDetallesPedido.Location = new Point(594, 93);
+            lblDetallesPedido.Name = "lblDetallesPedido";
+            lblDetallesPedido.Size = new Size(46, 50);
+            lblDetallesPedido.TabIndex = 0;
+            lblDetallesPedido.Text = "X";
+            lblDetallesPedido.TextAlign = ContentAlignment.MiddleCenter;
+            lblDetallesPedido.Click += lblDetallesPedido_Click;
             // 
-            // label2
+            // lblMesa
             // 
-            label2.AutoSize = true;
-            label2.BackColor = Color.Transparent;
-            label2.Cursor = Cursors.IBeam;
-            label2.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.ForeColor = Color.Black;
-            label2.Location = new Point(948, 93);
-            label2.Name = "label2";
-            label2.Size = new Size(46, 50);
-            label2.TabIndex = 1;
-            label2.Text = "X";
-            label2.TextAlign = ContentAlignment.MiddleCenter;
+            lblMesa.AutoSize = true;
+            lblMesa.BackColor = Color.Transparent;
+            lblMesa.Cursor = Cursors.IBeam;
+            lblMesa.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblMesa.ForeColor = Color.Black;
+            lblMesa.Location = new Point(948, 93);
+            lblMesa.Name = "lblMesa";
+            lblMesa.Size = new Size(46, 50);
+            lblMesa.TabIndex = 1;
+            lblMesa.Text = "X";
+            lblMesa.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label3
+            // lblPrecioTotal
             // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.Transparent;
-            label3.Cursor = Cursors.IBeam;
-            label3.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.ForeColor = Color.Black;
-            label3.Location = new Point(549, 581);
-            label3.Name = "label3";
-            label3.Size = new Size(84, 25);
-            label3.TabIndex = 2;
-            label3.Text = "XXXXXX";
-            label3.TextAlign = ContentAlignment.MiddleCenter;
+            lblPrecioTotal.AutoSize = true;
+            lblPrecioTotal.BackColor = Color.Transparent;
+            lblPrecioTotal.Cursor = Cursors.IBeam;
+            lblPrecioTotal.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblPrecioTotal.ForeColor = Color.Black;
+            lblPrecioTotal.Location = new Point(549, 581);
+            lblPrecioTotal.Name = "lblPrecioTotal";
+            lblPrecioTotal.Size = new Size(84, 25);
+            lblPrecioTotal.TabIndex = 2;
+            lblPrecioTotal.Text = "XXXXXX";
+            lblPrecioTotal.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // dataGridView1
             // 
@@ -199,9 +200,9 @@
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1067, 637);
             Controls.Add(dataGridView1);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(lblPrecioTotal);
+            Controls.Add(lblMesa);
+            Controls.Add(lblDetallesPedido);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -217,9 +218,9 @@
 
         #endregion
 
-        private Label label1;
-        private Label label2;
-        private Label label3;
+        private Label lblDetallesPedido;
+        private Label lblMesa;
+        private Label lblPrecioTotal;
         private DataGridView dataGridView1;
         private DataGridViewTextBoxColumn colProductos;
         private DataGridViewTextBoxColumn colCantidad;
