@@ -83,7 +83,7 @@ namespace OrderNow.Interfaces
             {
                 using (var adminUI = new UIadministrador())
                 {
-                    this.Hide();            
+                 
                     adminUI.ShowDialog();   
                     this.Show();            
                 }
@@ -92,7 +92,7 @@ namespace OrderNow.Interfaces
             {
                 using (var vendedorUI = new UIvendedor())
                 {
-                    this.Hide();
+             
                     vendedorUI.ShowDialog();
                     this.Show();
                 }

@@ -118,6 +118,7 @@
             txtMesa.Name = "txtMesa";
             txtMesa.Size = new Size(220, 23);
             txtMesa.TabIndex = 8;
+            txtMesa.TextAlign = HorizontalAlignment.Center;
             txtMesa.TextChanged += textBox1_TextChanged;
             // 
             // UIvendedor

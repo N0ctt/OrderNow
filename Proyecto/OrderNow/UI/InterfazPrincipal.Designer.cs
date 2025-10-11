@@ -100,7 +100,6 @@
             Controls.Add(pictureBox1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
-            MinimizeBox = false;
             Name = "InterfazPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Login";

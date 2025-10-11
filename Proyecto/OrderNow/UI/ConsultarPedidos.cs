@@ -47,9 +47,28 @@ namespace OrderNow
             btnCol.Text = "Ver Pedido";
             btnCol.UseColumnTextForButtonValue = true;
             dataGridView1.Columns.Add(btnCol);
+            btnCol.Name = "colVer";
+
+
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dataGridView1.RowTemplate.Height = 55;
+            dataGridView1.AllowUserToResizeRows = false;
+
+            // Anchos uniformes para que coincidan
+            colId.Width = 190;
+            colEstado.Width = 190;
+            btnCol.Width = 170;
+
+            // Centrar texto en todas las celdas
+            colId.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colEstado.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            btnCol.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             // Asignar DataSource
             dataGridView1.DataSource = lista;
+
+            
+
         }
 
 
@@ -64,8 +83,13 @@ namespace OrderNow
             // Verificamos si la columna es "colVer"
             if (dataGridView1.Columns[e.ColumnIndex].Name == "colVer")
             {
+                e.AdvancedBorderStyle.Top = DataGridViewAdvancedCellBorderStyle.None;
+                e.AdvancedBorderStyle.Bottom = DataGridViewAdvancedCellBorderStyle.None;
+
                 e.PaintBackground(e.ClipBounds, true);
 
+
+                // 🎨 Colores y fuente solicitados
                 Color backColor = Color.FromArgb(39, 39, 39); // fondo oscuro
                 Color foreColor = Color.White;                // texto blanco
 
@@ -93,14 +117,13 @@ namespace OrderNow
                     {
                         e.Graphics.FillPath(brush, path);
                     }
-                    
                 }
 
                 // Dibujar el texto centrado
                 TextRenderer.DrawText(
                     e.Graphics,
                     "Ver Pedido", // Texto fijo
-                    new Font("Segoe UI Semibold", 11, FontStyle.Bold),
+                    new Font("Segoe UI Semibold", 12, FontStyle.Bold),
                     rect,
                     foreColor,
                     TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter

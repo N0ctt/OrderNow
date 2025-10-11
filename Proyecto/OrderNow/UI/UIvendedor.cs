@@ -88,8 +88,7 @@ namespace OrderNow
                     NombreProducto = prod.Nombre,
                     PrecioProducto = prod.Precio,
                     ImagenProducto = prod.ImagenBitmap,
-                    Width = 180,   // 👈 tamaño fijo
-                    Height = 250   // 👈 tamaño fijo
+
 
                 };
 

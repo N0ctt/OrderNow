@@ -84,6 +84,26 @@ namespace OrderNow
             colEntregar.UseColumnTextForButtonValue = true;
             dataGridView1.Columns.Add(colEntregar);
 
+
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dataGridView1.RowTemplate.Height = 55;
+            dataGridView1.AllowUserToResizeRows = false;
+
+            // Anchos uniformes para que coincidan
+            colProducto.Width = 190;
+            colCantidad.Width = 190;
+            colPrecio.Width = 235;
+            colCancelar.Width = 165;
+            colEntregar.Width = 165;
+
+            // Centrar texto en todas las celdas
+            colProducto.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colCantidad.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colPrecio.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colCancelar.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colEntregar.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+
             // Fuente de datos: los detalles del pedido
             dataGridView1.DataSource = pedido.Detalles;
         }

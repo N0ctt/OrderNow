@@ -55,6 +55,7 @@
             // 
             // pictureBox2
             // 
+            pictureBox2.BackgroundImageLayout = ImageLayout.Stretch;
             pictureBox2.Location = new Point(312, 166);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(154, 136);

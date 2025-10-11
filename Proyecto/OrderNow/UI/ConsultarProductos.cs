@@ -24,6 +24,7 @@ namespace OrderNow
         }
         private void ConsultarProductos_Load(object sender, EventArgs e)
         {
+
             CargarProductos();
         }
 
@@ -81,7 +82,12 @@ namespace OrderNow
                 {
                     Name = "colDescripcion",
                     HeaderText = "Descripción",
-                    DataPropertyName = "Descripcion"
+                    DataPropertyName = "Descripcion",
+                    DefaultCellStyle = new DataGridViewCellStyle
+                    {
+                        WrapMode = DataGridViewTriState.True,
+                        Alignment = DataGridViewContentAlignment.MiddleCenter
+                    }
                 });
 
                 dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
@@ -108,8 +114,28 @@ namespace OrderNow
                     UseColumnTextForButtonValue = true
                 });
 
-                // Asignar la lista como DataSource al final
                 dataGridView1.DataSource = lista;
+
+                dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+                dataGridView1.RowTemplate.Height = 90; // altura fija deseada
+                dataGridView1.AllowUserToResizeRows = false; // evitar que el usuario cambie altura
+                dataGridView1.RowsDefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
+                // 🔹 Aplicar la altura fija a todas las filas cargadas
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    row.Height = 105; // asegúrate que todas las filas queden iguales
+                }
+
+                // 👇 Aquí defines tus anchos personalizados (no se pierde ninguna funcionalidad)
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+                dataGridView1.Columns["colID"].Width = 62;
+                dataGridView1.Columns["colImagen"].Width = 120;
+                dataGridView1.Columns["colNombre"].Width = 128;
+                dataGridView1.Columns["colDescripcion"].Width = 215;
+                dataGridView1.Columns["colPrecio"].Width = 110;
+                dataGridView1.Columns["colEditar"].Width = 160;
+                dataGridView1.Columns["colEliminar"].Width = 160;
             }
             catch (Exception ex)
             {

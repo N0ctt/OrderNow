@@ -38,7 +38,7 @@
             // 
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(211, 152);
+            pictureBox1.Size = new Size(209, 152);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -52,9 +52,9 @@
             button1.FlatStyle = FlatStyle.Popup;
             button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(0, 151);
+            button1.Location = new Point(0, 148);
             button1.Name = "button1";
-            button1.Size = new Size(211, 42);
+            button1.Size = new Size(209, 42);
             button1.TabIndex = 1;
             button1.Text = "Agregar";
             button1.UseVisualStyleBackColor = false;
@@ -62,16 +62,17 @@
             // 
             // lblNombre
             // 
-            lblNombre.AutoSize = true;
             lblNombre.BackColor = Color.Transparent;
             lblNombre.FlatStyle = FlatStyle.Popup;
             lblNombre.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblNombre.Location = new Point(60, 205);
+            lblNombre.Location = new Point(0, 190);
             lblNombre.Name = "lblNombre";
-            lblNombre.Size = new Size(80, 21);
+            lblNombre.RightToLeft = RightToLeft.No;
+            lblNombre.Size = new Size(209, 36);
             lblNombre.TabIndex = 2;
             lblNombre.Text = "XXXXXXX";
             lblNombre.TextAlign = ContentAlignment.MiddleCenter;
+            lblNombre.Click += lblNombre_Click;
             // 
             // ProductoCard
             // 
@@ -82,11 +83,10 @@
             Controls.Add(button1);
             Controls.Add(pictureBox1);
             Name = "ProductoCard";
-            Size = new Size(211, 242);
+            Size = new Size(209, 227);
             Load += ProductoCard_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion

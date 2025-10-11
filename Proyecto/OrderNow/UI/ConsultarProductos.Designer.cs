@@ -48,6 +48,9 @@
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.AllowUserToResizeColumns = false;
+            dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.BackgroundColor = Color.White;
             dataGridView1.BorderStyle = BorderStyle.None;
             dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
@@ -89,50 +92,50 @@
             colID.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             colID.DefaultCellStyle = dataGridViewCellStyle2;
-            colID.FillWeight = 315.950623F;
+            colID.FillWeight = 60F;
             colID.HeaderText = "ID";
             colID.Name = "colID";
             colID.Resizable = DataGridViewTriState.False;
-            colID.Width = 70;
+            colID.Width = 79;
             // 
             // colImagen
             // 
             colImagen.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            colImagen.FillWeight = 87.05584F;
+            colImagen.FillWeight = 90F;
             colImagen.HeaderText = "Imagen";
             colImagen.ImageLayout = DataGridViewImageCellLayout.Zoom;
             colImagen.Name = "colImagen";
             colImagen.Resizable = DataGridViewTriState.False;
-            colImagen.Width = 110;
+            colImagen.Width = 118;
             // 
             // colNombre
             // 
             colNombre.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            colNombre.FillWeight = 59.398716F;
+            colNombre.FillWeight = 120F;
             colNombre.HeaderText = "Nombre";
             colNombre.Name = "colNombre";
             colNombre.Resizable = DataGridViewTriState.False;
-            colNombre.Width = 135;
+            colNombre.Width = 158;
             // 
             // colDescripcion
             // 
             colDescripcion.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             colDescripcion.DefaultCellStyle = dataGridViewCellStyle3;
-            colDescripcion.FillWeight = 59.398716F;
+            colDescripcion.FillWeight = 180F;
             colDescripcion.HeaderText = "Descripcion";
             colDescripcion.Name = "colDescripcion";
-            colDescripcion.Resizable = DataGridViewTriState.False;
-            colDescripcion.Width = 195;
+            colDescripcion.Resizable = DataGridViewTriState.True;
+            colDescripcion.Width = 236;
             // 
             // colPrecio
             // 
             colPrecio.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            colPrecio.FillWeight = 59.398716F;
+            colPrecio.FillWeight = 80F;
             colPrecio.HeaderText = "Precio";
             colPrecio.Name = "colPrecio";
             colPrecio.Resizable = DataGridViewTriState.False;
-            colPrecio.Width = 140;
+            colPrecio.Width = 105;
             // 
             // colEditar
             // 
@@ -144,13 +147,12 @@
             dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(39, 39, 39);
             dataGridViewCellStyle4.SelectionForeColor = Color.White;
             colEditar.DefaultCellStyle = dataGridViewCellStyle4;
-            colEditar.FillWeight = 59.398716F;
             colEditar.FlatStyle = FlatStyle.Flat;
             colEditar.HeaderText = "Editar";
             colEditar.Name = "colEditar";
             colEditar.Resizable = DataGridViewTriState.False;
             colEditar.UseColumnTextForButtonValue = true;
-            colEditar.Width = 157;
+            colEditar.Width = 132;
             // 
             // colEliminar
             // 
@@ -162,13 +164,12 @@
             dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(39, 39, 39);
             dataGridViewCellStyle5.SelectionForeColor = Color.White;
             colEliminar.DefaultCellStyle = dataGridViewCellStyle5;
-            colEliminar.FillWeight = 59.398716F;
             colEliminar.FlatStyle = FlatStyle.Flat;
             colEliminar.HeaderText = "Eliminar";
             colEliminar.Name = "colEliminar";
             colEliminar.Resizable = DataGridViewTriState.False;
             colEliminar.UseColumnTextForButtonValue = true;
-            colEliminar.Width = 150;
+            colEliminar.Width = 131;
             // 
             // ConsultarProductos
             // 
