@@ -21,6 +21,13 @@ namespace OrderNow
 
         private void ConsultarPedidos_Load(object sender, EventArgs e)
         {
+
+            CargarPedidos();
+            dataGridView1.ClearSelection();
+        }
+
+        private void CargarPedidos()
+        {
             var admin = new AdministradorMetodos();
             var lista = admin.ConsultarPedidos();
 
@@ -156,8 +163,13 @@ namespace OrderNow
             if (e.RowIndex >= 0 && dataGridView1.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
             {
                 int pedidoId = (int)dataGridView1.Rows[e.RowIndex].Cells[0].Value;
+
+                
                 var formDetalles = new VerDetallesDePedido(pedidoId);
                 formDetalles.ShowDialog();
+
+                
+                CargarPedidos();
             }
         }
 

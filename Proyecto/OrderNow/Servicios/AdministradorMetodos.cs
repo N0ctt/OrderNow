@@ -73,8 +73,13 @@ namespace OrderNow.Servicios
                 using var conn = conexion.CrearConexion();
                 conn.Open();
 
-                // Verificar si el producto está en pedidos
-                string checkQuery = "SELECT COUNT(*) FROM PedidoDetalles WHERE ProductoID = @Id";
+                // Verificar si el producto está en pedidos que NO estén cancelados (Estado ≠ 2)
+                string checkQuery = @"
+            SELECT COUNT(*) 
+            FROM PedidoDetalles pd
+            INNER JOIN Pedidos p ON pd.PedidoID = p.Id
+            WHERE pd.ProductoID = @Id AND p.Estado <> 2";  // 2 = Cancelado
+
                 using (var checkCmd = new SqlCommand(checkQuery, conn))
                 {
                     checkCmd.Parameters.AddWithValue("@Id", productoId);
@@ -82,18 +87,26 @@ namespace OrderNow.Servicios
 
                     if (count > 0)
                     {
-                        MessageBox.Show("No se puede eliminar el producto porque ya está en pedidos.",
+                        MessageBox.Show("No se puede eliminar el producto porque está en pedidos activos o entregados.",
                             "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return false;
                     }
                 }
 
-                // Si no está en pedidos, entonces se puede eliminar
+                // Si solo está en pedidos cancelados o en ninguno, se puede eliminar
                 string query = "DELETE FROM Productos WHERE Id = @Id";
                 using var cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@Id", productoId);
 
-                return cmd.ExecuteNonQuery() > 0;
+                bool eliminado = cmd.ExecuteNonQuery() > 0;
+
+                if (eliminado)
+                {
+                    MessageBox.Show("Producto eliminado correctamente.",
+                        "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                return eliminado;
             }
             catch (Exception ex)
             {
@@ -102,6 +115,8 @@ namespace OrderNow.Servicios
                 return false;
             }
         }
+
+
 
 
         public List<Producto> ConsultarProductos()

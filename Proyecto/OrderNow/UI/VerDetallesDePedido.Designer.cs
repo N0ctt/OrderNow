@@ -42,6 +42,8 @@
             colPrecioUnitario = new DataGridViewTextBoxColumn();
             colcancelar = new DataGridViewButtonColumn();
             colEntregar = new DataGridViewButtonColumn();
+            btnCancelarPedido = new Button();
+            btnEntregarPedido = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -192,6 +194,28 @@
             colEntregar.UseColumnTextForButtonValue = true;
             colEntregar.Width = 160;
             // 
+            // btnCancelarPedido
+            // 
+            btnCancelarPedido.Font = new Font("Comic Sans MS", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            btnCancelarPedido.Location = new Point(747, 275);
+            btnCancelarPedido.Name = "btnCancelarPedido";
+            btnCancelarPedido.Size = new Size(173, 65);
+            btnCancelarPedido.TabIndex = 4;
+            btnCancelarPedido.Text = "Cancelar";
+            btnCancelarPedido.UseVisualStyleBackColor = true;
+            btnCancelarPedido.Click += button1_Click;
+            // 
+            // btnEntregarPedido
+            // 
+            btnEntregarPedido.Font = new Font("Comic Sans MS", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            btnEntregarPedido.Location = new Point(747, 396);
+            btnEntregarPedido.Name = "btnEntregarPedido";
+            btnEntregarPedido.Size = new Size(173, 65);
+            btnEntregarPedido.TabIndex = 5;
+            btnEntregarPedido.Text = "Entregar";
+            btnEntregarPedido.UseVisualStyleBackColor = true;
+            btnEntregarPedido.Click += btnEntregarPedido_Click;
+            // 
             // VerDetallesDePedido
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -199,6 +223,8 @@
             BackgroundImage = Properties.Resources.DETALLESPED__1_;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1067, 637);
+            Controls.Add(btnEntregarPedido);
+            Controls.Add(btnCancelarPedido);
             Controls.Add(dataGridView1);
             Controls.Add(lblPrecioTotal);
             Controls.Add(lblMesa);
@@ -227,5 +253,7 @@
         private DataGridViewTextBoxColumn colPrecioUnitario;
         private DataGridViewButtonColumn colcancelar;
         private DataGridViewButtonColumn colEntregar;
+        private Button btnCancelarPedido;
+        private Button btnEntregarPedido;
     }
 }
