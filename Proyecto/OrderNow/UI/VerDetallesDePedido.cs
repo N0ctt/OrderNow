@@ -30,6 +30,8 @@ namespace OrderNow
 
         private void VerDetallesDePedido_Load(object sender, EventArgs e)
         {
+            RedondearBoton(btnCancelarPedido, 20);
+            RedondearBoton(btnEntregarPedido, 20);
             // Obtener el pedido completo con sus detalles
             var pedido = _admin.ConsultarPedidoPorId(_pedidoId);
 
@@ -94,7 +96,26 @@ namespace OrderNow
             dataGridView1.DataSource = pedido.Detalles;
         }
 
+        private void RedondearBoton(Button boton, int radio)
+        {
+            GraphicsPath path = new GraphicsPath();
+            Rectangle rect = new Rectangle(0, 0, boton.Width - 1, boton.Height - 1);
 
+            // Arcos de las 4 esquinas
+            path.AddArc(rect.X, rect.Y, radio, radio, 180, 90); // arriba-izquierda
+            path.AddArc(rect.Right - radio, rect.Y, radio, radio, 270, 90); // arriba-derecha
+            path.AddArc(rect.Right - radio, rect.Bottom - radio, radio, radio, 0, 90); // abajo-derecha
+            path.AddArc(rect.X, rect.Bottom - radio, radio, radio, 90, 90); // abajo-izquierda
+            path.CloseFigure();
+
+            boton.Region = new Region(path);
+
+            // Activar suavizado en el evento Paint del botón
+            boton.Paint += (s, ev) =>
+            {
+                ev.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            };
+        }
         private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
 

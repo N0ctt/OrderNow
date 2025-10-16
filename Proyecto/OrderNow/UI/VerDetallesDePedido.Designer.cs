@@ -196,24 +196,32 @@
             // 
             // btnCancelarPedido
             // 
-            btnCancelarPedido.Font = new Font("Comic Sans MS", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            btnCancelarPedido.Location = new Point(747, 275);
+            btnCancelarPedido.BackColor = Color.Red;
+            btnCancelarPedido.FlatAppearance.BorderSize = 0;
+            btnCancelarPedido.FlatStyle = FlatStyle.Flat;
+            btnCancelarPedido.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCancelarPedido.ForeColor = Color.White;
+            btnCancelarPedido.Location = new Point(758, 297);
             btnCancelarPedido.Name = "btnCancelarPedido";
             btnCancelarPedido.Size = new Size(173, 65);
             btnCancelarPedido.TabIndex = 4;
             btnCancelarPedido.Text = "Cancelar";
-            btnCancelarPedido.UseVisualStyleBackColor = true;
+            btnCancelarPedido.UseVisualStyleBackColor = false;
             btnCancelarPedido.Click += button1_Click;
             // 
             // btnEntregarPedido
             // 
-            btnEntregarPedido.Font = new Font("Comic Sans MS", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            btnEntregarPedido.Location = new Point(747, 396);
+            btnEntregarPedido.BackColor = Color.FromArgb(0, 192, 0);
+            btnEntregarPedido.FlatAppearance.BorderSize = 0;
+            btnEntregarPedido.FlatStyle = FlatStyle.Flat;
+            btnEntregarPedido.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEntregarPedido.ForeColor = Color.White;
+            btnEntregarPedido.Location = new Point(758, 376);
             btnEntregarPedido.Name = "btnEntregarPedido";
             btnEntregarPedido.Size = new Size(173, 65);
             btnEntregarPedido.TabIndex = 5;
             btnEntregarPedido.Text = "Entregar";
-            btnEntregarPedido.UseVisualStyleBackColor = true;
+            btnEntregarPedido.UseVisualStyleBackColor = false;
             btnEntregarPedido.Click += btnEntregarPedido_Click;
             // 
             // VerDetallesDePedido

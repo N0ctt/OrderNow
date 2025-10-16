@@ -74,7 +74,6 @@ namespace OrderNow
             // Asignar DataSource
             dataGridView1.DataSource = lista;
 
-            
 
         }
 

@@ -93,9 +93,9 @@
             // 
             // panelCarrusel
             // 
-            panelCarrusel.Location = new Point(59, 341);
+            panelCarrusel.Location = new Point(56, 341);
             panelCarrusel.Name = "panelCarrusel";
-            panelCarrusel.Size = new Size(662, 233);
+            panelCarrusel.Size = new Size(663, 233);
             panelCarrusel.TabIndex = 6;
             panelCarrusel.Paint += panelCarrusel_Paint;
             // 
