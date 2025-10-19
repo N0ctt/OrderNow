@@ -82,19 +82,50 @@ namespace OrderNow
             colCantidad.Width = 190;
             colPrecio.Width = 235;
 
-            colEntregar.Width = 165;
+            
 
             // Centrar texto en todas las celdas
             colProducto.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             colCantidad.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             colPrecio.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            colEntregar.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            
 
 
             // Fuente de datos: los detalles del pedido
-            dataGridView1.DataSource = pedido.Detalles;
+            dataGridView1.DataSource = pedido.Detalles; 
+
+            // --- Nuevo bloque para mostrar en gris los productos inhabilitados ---
+            foreach (DataGridViewRow fila in dataGridView1.Rows)
+            {
+                if (fila.DataBoundItem is PedidoDetalle detalle)
+                {
+                    if (detalle.Producto != null && !detalle.Producto.Activo) // Usa "Activo" porque así se llama en tu modelo Producto
+                    {
+                        fila.DefaultCellStyle.ForeColor = Color.Gray;
+                        fila.DefaultCellStyle.Font = new Font(dataGridView1.Font, FontStyle.Italic);
+                        fila.DefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
+                    }
+                }
+            }
+
+            dataGridView1.CellFormatting += (s, ev) =>
+            {
+                if (ev.RowIndex >= 0 && ev.RowIndex < dataGridView1.Rows.Count)
+                {
+                    if (dataGridView1.Rows[ev.RowIndex].DataBoundItem is PedidoDetalle detalle &&
+                        detalle.Producto != null && !detalle.Producto.Activo)
+                    {
+                        dataGridView1.Rows[ev.RowIndex]
+                            .Cells[ev.ColumnIndex]
+                            .ToolTipText = "Este producto está inhabilitado";
+                    }
+                }
+            };
         }
+
+
+
 
         private void RedondearBoton(Button boton, int radio)
         {

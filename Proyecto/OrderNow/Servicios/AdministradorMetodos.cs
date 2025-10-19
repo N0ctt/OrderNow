@@ -66,7 +66,7 @@ namespace OrderNow.Servicios
             return cmd.ExecuteNonQuery() > 0;
         }
 
-        public bool EliminarProducto(int productoId)
+        public bool InhabilitarProducto(int productoId)
         {
             try
             {
@@ -87,37 +87,63 @@ namespace OrderNow.Servicios
 
                     if (count > 0)
                     {
-                        MessageBox.Show("No se puede eliminar el producto porque está en pedidos activos o entregados.",
+                        MessageBox.Show("No se puede inhabilitar el producto porque está en pedidos activos o entregados.",
                             "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return false;
                     }
                 }
 
-                // Si solo está en pedidos cancelados o en ninguno, se puede eliminar
-                string query = "DELETE FROM Productos WHERE Id = @Id";
+                // Inhabilitar el producto
+                string query = "UPDATE Productos SET Activo = 0 WHERE Id = @Id";
                 using var cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@Id", productoId);
 
-                bool eliminado = cmd.ExecuteNonQuery() > 0;
+                bool inhabilitado = cmd.ExecuteNonQuery() > 0;
 
-                if (eliminado)
+                if (inhabilitado)
                 {
-                    MessageBox.Show("Producto eliminado correctamente.",
+                    MessageBox.Show("Producto inhabilitado correctamente.",
                         "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
-                return eliminado;
+                return inhabilitado;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al eliminar producto: {ex.Message}",
+                MessageBox.Show($"Error al inhabilitar producto: {ex.Message}",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
 
+        public bool HabilitarProducto(int productoId)
+        {
+            try
+            {
+                using var conn = conexion.CrearConexion();
+                conn.Open();
 
+                string query = "UPDATE Productos SET Activo = 1 WHERE Id = @Id";
+                using var cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Id", productoId);
 
+                bool habilitado = cmd.ExecuteNonQuery() > 0;
+
+                if (habilitado)
+                {
+                    MessageBox.Show("Producto habilitado correctamente.",
+                        "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                return habilitado;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al habilitar producto: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
 
         public List<Producto> ConsultarProductos()
         {
@@ -126,23 +152,28 @@ namespace OrderNow.Servicios
             using var conn = conexion.CrearConexion();
             conn.Open();
 
-            string query = "SELECT Id, Nombre, Descripcion, Precio, Imagen FROM Productos";
+            string query = "SELECT Id, Nombre, Descripcion, Precio, Imagen, Activo FROM Productos";
             using var cmd = new SqlCommand(query, conn);
             using var reader = cmd.ExecuteReader();
 
             while (reader.Read())
             {
-                lista.Add(new Producto(
+                var producto = new Producto(
                     id: reader.GetInt32(0),
                     nombre: reader.GetString(1),
                     descripcion: reader.IsDBNull(2) ? "" : reader.GetString(2),
                     precio: reader.GetInt32(3),
                     imagen: reader.IsDBNull(4) ? null : (byte[])reader["Imagen"]
-                ));
+                );
+                
+                producto.Activo = reader.GetBoolean(5); 
+
+                lista.Add(producto);
             }
 
             return lista;
         }
+
         public List<Pedido> ConsultarPedidos()
         {
             var lista = new List<Pedido>();
@@ -211,7 +242,7 @@ namespace OrderNow.Servicios
             using var conn = conexion.CrearConexion();
             conn.Open();
 
-            // Traemos el pedido principal
+            // Traer datos del pedido
             using (var cmd = new SqlCommand("SELECT Id, Mesa, Estado FROM Pedidos WHERE Id = @id", conn))
             {
                 cmd.Parameters.AddWithValue("@id", id);
@@ -232,11 +263,12 @@ namespace OrderNow.Servicios
             if (pedido == null)
                 return null;
 
-            // Traemos los detalles del pedido (con datos del producto)
+            // 🔹 Cambiamos el INNER JOIN a LEFT JOIN para incluir productos inhabilitados
             using (var cmd = new SqlCommand(@"
-        SELECT dp.Id, dp.PedidoId, dp.ProductoId, dp.Cantidad, dp.PrecioUnitario, p.Nombre, p.Precio
+        SELECT dp.Id, dp.PedidoId, dp.ProductoId, dp.Cantidad, dp.PrecioUnitario,
+               p.Nombre, p.Precio, p.Activo, p.Imagen
         FROM PedidoDetalles dp
-        INNER JOIN Productos p ON dp.ProductoId = p.Id
+        LEFT JOIN Productos p ON dp.ProductoId = p.Id
         WHERE dp.PedidoId = @id", conn))
             {
                 cmd.Parameters.AddWithValue("@id", id);
@@ -253,9 +285,11 @@ namespace OrderNow.Servicios
                         PrecioUnitario = rdr.GetInt32(4),
                         Producto = new Producto
                         {
-                            Id = rdr.GetInt32(2),
-                            Nombre = rdr.GetString(5),
-                            Precio = rdr.GetInt32(6)
+                            Id = rdr.IsDBNull(2) ? 0 : rdr.GetInt32(2),
+                            Nombre = rdr.IsDBNull(5) ? "(Producto eliminado)" : rdr.GetString(5),
+                            Precio = rdr.IsDBNull(6) ? 0 : rdr.GetInt32(6),
+                            Activo = rdr.IsDBNull(7) ? false : rdr.GetBoolean(7),
+                            Imagen = rdr.IsDBNull(8) ? null : (byte[])rdr[8]
                         }
                     };
 
@@ -263,9 +297,9 @@ namespace OrderNow.Servicios
                 }
             }
 
-
             return pedido;
         }
+
 
 
         public bool CancelarPedido(int id)

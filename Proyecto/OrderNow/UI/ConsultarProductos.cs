@@ -108,13 +108,28 @@ namespace OrderNow
 
                 dataGridView1.Columns.Add(new DataGridViewButtonColumn
                 {
-                    Name = "colEliminar",
-                    HeaderText = "Eliminar",
-                    Text = "Eliminar",
-                    UseColumnTextForButtonValue = true
+                    Name = "colAccion",
+                    HeaderText = "Acción",
+                    UseColumnTextForButtonValue = false 
                 });
 
+
                 dataGridView1.DataSource = lista;
+
+                // Ajustar texto del botón según estado
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    var prod = (Producto)row.DataBoundItem;
+                    if (prod.Activo)
+                    {
+                        row.Cells["colAccion"].Value = "Inhabilitar";
+                    }
+                    else
+                    {
+                        row.Cells["colAccion"].Value = "Habilitar";
+                    }
+                }
+
 
                 dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
                 dataGridView1.RowTemplate.Height = 90; // altura fija deseada
@@ -127,15 +142,14 @@ namespace OrderNow
                     row.Height = 105; // asegúrate que todas las filas queden iguales
                 }
 
-                // 👇 Aquí defines tus anchos personalizados (no se pierde ninguna funcionalidad)
-                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
-                dataGridView1.Columns["colID"].Width = 62;
+                dataGridView1.Columns["colId"].Width = 62;
                 dataGridView1.Columns["colImagen"].Width = 120;
                 dataGridView1.Columns["colNombre"].Width = 128;
                 dataGridView1.Columns["colDescripcion"].Width = 215;
                 dataGridView1.Columns["colPrecio"].Width = 110;
                 dataGridView1.Columns["colEditar"].Width = 160;
-                dataGridView1.Columns["colEliminar"].Width = 160;
+                dataGridView1.Columns["colAccion"].Width = 160;
+
             }
             catch (Exception ex)
             {
@@ -148,72 +162,90 @@ namespace OrderNow
 
         private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-            // Evitar encabezados
+            // Evitar pintar encabezados
             if (e.RowIndex < 0) return;
 
-            // Verificamos si la columna es Editar o Eliminar
             string colName = dataGridView1.Columns[e.ColumnIndex].Name;
 
-            if (colName == "colEditar" || colName == "colEliminar")
+            // Solo personalizamos las columnas Editar y Acción
+            if (colName != "colEditar" && colName != "colAccion") return;
+
+            // Fondo blanco para el margen
+            using (SolidBrush brush = new SolidBrush(Color.White))
             {
-                // Fondo blanco para el margen
-                using (SolidBrush brush = new SolidBrush(Color.White))
-                {
-                    e.Graphics.FillRectangle(brush, e.CellBounds);
-                }
-
-                // Colores diferentes para cada botón
-                Color backColor = colName == "colEditar" ? Color.FromArgb(39, 39, 39) : Color.FromArgb(192, 57, 43);
-                Color foreColor = Color.White;
-
-                // Margen para que no se peguen entre sí
-                int margin = 6;
-                Rectangle rect = new Rectangle(
-                    e.CellBounds.X + margin,
-                    e.CellBounds.Y + margin,
-                    e.CellBounds.Width - (margin * 2),
-                    e.CellBounds.Height - (margin * 2)
-                );
-
-                int radius = 10; // radio de las esquinas
-
-                using (GraphicsPath path = new GraphicsPath())
-                {
-                    // Dibujar figura redondeada
-                    path.AddArc(rect.X, rect.Y, radius, radius, 180, 90);
-                    path.AddArc(rect.Right - radius, rect.Y, radius, radius, 270, 90);
-                    path.AddArc(rect.Right - radius, rect.Bottom - radius, radius, radius, 0, 90);
-                    path.AddArc(rect.X, rect.Bottom - radius, radius, radius, 90, 90);
-                    path.CloseFigure();
-
-                    // Rellenar
-                    using (SolidBrush brush = new SolidBrush(backColor))
-                    {
-                        e.Graphics.FillPath(brush, path);
-                    }
-
-                    // Borde blanco
-                    using (Pen pen = new Pen(Color.White, 1))
-                    {
-                        e.Graphics.DrawPath(pen, path);
-                    }
-                }
-
-                // Texto del botón
-                string texto = colName == "colEditar" ? "Editar" : "Eliminar";
-
-                TextRenderer.DrawText(
-                    e.Graphics,
-                    texto,
-                    new Font("Segoe UI Semibold", 11, FontStyle.Bold),
-                    rect,
-                    foreColor,
-                    TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter
-                );
-
-                e.Handled = true;
+                e.Graphics.FillRectangle(brush, e.CellBounds);
             }
+
+            // Determinar color y texto según columna y estado
+            Color backColor;
+            Color foreColor = Color.White;
+            string texto;
+
+            if (colName == "colEditar")
+            {
+                backColor = Color.FromArgb(39, 39, 39); // gris oscuro
+                texto = "Editar";
+            }
+            else // colAccion
+            {
+                var producto = (Producto)dataGridView1.Rows[e.RowIndex].DataBoundItem;
+                if (producto.Activo)
+                {
+                    backColor = Color.FromArgb(192, 57, 43); // rojo -> Inhabilitar
+                    texto = "Inhabilitar";
+                }
+                else
+                {
+                    backColor = Color.FromArgb(46, 204, 113); // verde -> Habilitar
+                    texto = "Habilitar";
+                }
+            }
+
+            // Margen interno
+            int margin = 6;
+            Rectangle rect = new Rectangle(
+                e.CellBounds.X + margin,
+                e.CellBounds.Y + margin,
+                e.CellBounds.Width - (margin * 2),
+                e.CellBounds.Height - (margin * 2)
+            );
+
+            int radius = 10; // esquinas redondeadas
+
+            using (GraphicsPath path = new GraphicsPath())
+            {
+                path.AddArc(rect.X, rect.Y, radius, radius, 180, 90);
+                path.AddArc(rect.Right - radius, rect.Y, radius, radius, 270, 90);
+                path.AddArc(rect.Right - radius, rect.Bottom - radius, radius, radius, 0, 90);
+                path.AddArc(rect.X, rect.Bottom - radius, radius, radius, 90, 90);
+                path.CloseFigure();
+
+                // Relleno del botón
+                using (SolidBrush btnBrush = new SolidBrush(backColor))
+                {
+                    e.Graphics.FillPath(btnBrush, path);
+                }
+
+                // Borde blanco del botón
+                using (Pen borderPen = new Pen(Color.White, 1))
+                {
+                    e.Graphics.DrawPath(borderPen, path);
+                }
+            }
+
+            // Dibujar texto centrado
+            TextRenderer.DrawText(
+                e.Graphics,
+                texto,
+                new Font("Segoe UI Semibold", 11, FontStyle.Bold),
+                rect,
+                foreColor,
+                TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter
+            );
+
+            e.Handled = true;
         }
+
 
         // 👇 Evento para cambiar el cursor cuando pasa sobre Editar o Eliminar
         private void dataGridView1_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
@@ -222,13 +254,13 @@ namespace OrderNow
             {
                 string colName = dataGridView1.Columns[e.ColumnIndex].Name;
 
-                if (colName == "colEditar" || colName == "colEliminar")
+                if (colName == "colEditar" || colName == "colAccion")
                 {
-                    dataGridView1.Cursor = Cursors.Hand; // 👆 manito
+                    dataGridView1.Cursor = Cursors.Hand;
                 }
                 else
                 {
-                    dataGridView1.Cursor = Cursors.Default; // ➡️ flecha normal
+                    dataGridView1.Cursor = Cursors.Default;
                 }
             }
         }
@@ -243,21 +275,23 @@ namespace OrderNow
                 
                 Producto producto = (Producto)dataGridView1.Rows[e.RowIndex].DataBoundItem;
 
-                if (colName == "colEliminar")
+                if (colName == "colAccion")
                 {
-                    var confirm = MessageBox.Show($"¿Seguro que quieres eliminar '{producto.Nombre}'?",
-                                                  "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    bool esActivo = producto.Activo;
+                    string accion = esActivo ? "Inhabilitar" : "Habilitar";
+
+                    var confirm = MessageBox.Show($"¿Seguro que quieres {accion.ToLower()} '{producto.Nombre}'?",
+                                                  "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (confirm == DialogResult.Yes)
                     {
-                        if (_adminService.EliminarProducto(producto.Id))
+                        bool resultado = esActivo
+                            ? _adminService.InhabilitarProducto(producto.Id)
+                            : _adminService.HabilitarProducto(producto.Id);
+
+                        if (resultado)
                         {
-                            MessageBox.Show("Producto eliminado con éxito");
-                            CargarProductos(); 
-                        }
-                        else
-                        {
-                            MessageBox.Show("Error al eliminar producto");
+                            CargarProductos();
                         }
                     }
                 }

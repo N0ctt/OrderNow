@@ -20,7 +20,7 @@ namespace OrderNow.Servicios
             using var conexion = _conexion.CrearConexion();
             conexion.Open();
 
-            using var cmd = new SqlCommand("SELECT Id, Nombre, Descripcion, Precio, Imagen FROM Productos", conexion);
+            using var cmd = new SqlCommand("SELECT Id, Nombre, Descripcion, Precio, Imagen, Activo FROM Productos WHERE Activo = 1", conexion);
             using var reader = cmd.ExecuteReader();
 
             while (reader.Read())
@@ -29,17 +29,14 @@ namespace OrderNow.Servicios
                     id: reader.GetInt32(0),
                     nombre: reader.GetString(1),
                     descripcion: reader.IsDBNull(2) ? "" : reader.GetString(2),
-                    precio: reader.GetInt32(3)
+                    precio: reader.GetInt32(3),
+                    imagen: reader.IsDBNull(4) ? null : (byte[])reader[4],
+                    activo: reader.GetBoolean(5) 
                 );
 
-                // Validar si hay imagen
-                if (!reader.IsDBNull(4))
+                if (producto.Imagen != null && producto.Imagen.Length > 0)
                 {
-                    byte[] bytesImagen = (byte[])reader[4];
-                    producto.Imagen = bytesImagen;
-
-                    // Convertir a Bitmap para mostrar en el PictureBox
-                    using var ms = new MemoryStream(bytesImagen);
+                    using var ms = new MemoryStream(producto.Imagen);
                     producto.ImagenBitmap = Image.FromStream(ms);
                 }
 
@@ -48,6 +45,7 @@ namespace OrderNow.Servicios
 
             return lista;
         }
+
 
 
 
