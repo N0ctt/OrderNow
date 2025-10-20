@@ -73,12 +73,12 @@ namespace OrderNow.Servicios
                 using var conn = conexion.CrearConexion();
                 conn.Open();
 
-                // Verificar si el producto está en pedidos que NO estén cancelados (Estado ≠ 2)
+                // Verificar si el producto está en pedidos pendientes (Estado = 0)
                 string checkQuery = @"
-            SELECT COUNT(*) 
-            FROM PedidoDetalles pd
-            INNER JOIN Pedidos p ON pd.PedidoID = p.Id
-            WHERE pd.ProductoID = @Id AND p.Estado <> 2";  // 2 = Cancelado
+        SELECT COUNT(*) 
+        FROM PedidoDetalles pd
+        INNER JOIN Pedidos p ON pd.PedidoID = p.Id
+        WHERE pd.ProductoID = @Id AND p.Estado = 0";  // Solo bloquea si hay pedidos pendientes
 
                 using (var checkCmd = new SqlCommand(checkQuery, conn))
                 {
@@ -87,7 +87,7 @@ namespace OrderNow.Servicios
 
                     if (count > 0)
                     {
-                        MessageBox.Show("No se puede inhabilitar el producto porque está en pedidos activos o entregados.",
+                        MessageBox.Show("No se puede inhabilitar el producto porque está en pedidos pendientes.",
                             "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return false;
                     }
